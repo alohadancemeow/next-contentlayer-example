@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { NextPage } from "next";
 import { compareDesc, format, parseISO } from "date-fns";
 import { allPosts, Post } from "contentlayer/generated";
+
+import Tags from "components/Tags";
+import Menu from "components/Menu";
 
 export async function getStaticProps() {
   const posts: Post[] = allPosts.sort((a, b) => {
@@ -9,8 +13,7 @@ export async function getStaticProps() {
   return { props: { posts } };
 }
 
-function PostCard(post: Post) {
-  // console.log(post)
+export const PostCard = (post: Post) => {
   return (
     <div className="mb-8">
       <h2 className="text-xl">
@@ -21,6 +24,9 @@ function PostCard(post: Post) {
       <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
         {format(parseISO(post.date), "LLLL d, yyyy")}
       </time>
+
+      <Tags tags={post.tags} />
+
       <div
         className="text-sm"
         dangerouslySetInnerHTML={{ __html: post.description }}
@@ -29,16 +35,15 @@ function PostCard(post: Post) {
   );
 }
 
-export default function Home({ posts }: { posts: Post[] }) {
+const Home: NextPage = ({ posts }: { posts: Post[] }) => {
   return (
     <div className="max-w-xl py-8 mx-auto">
-      <h1 className="mb-8 text-3xl font-bold text-center">
-        Next.js Example
-      </h1>
-
+      <Menu />
       {posts.map((post, idx) => (
         <PostCard key={idx} {...post} />
       ))}
     </div>
   );
 }
+
+export default Home

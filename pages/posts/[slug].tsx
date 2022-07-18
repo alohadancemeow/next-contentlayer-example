@@ -2,6 +2,8 @@ import Head from "next/head";
 import { format, parseISO } from "date-fns";
 import { allPosts, Post } from "contentlayer/generated";
 
+import Tags from "components/Tags";
+
 export async function getStaticPaths() {
   const paths: string[] = allPosts.map((post) => post.url);
   return {
@@ -33,6 +35,9 @@ const PostLayout = ({ post }: { post: Post }) => {
             {format(parseISO(post.date), "LLLL d, yyyy")}
           </time>
           <h1>{post.title}</h1>
+
+          <Tags tags={post.tags} />
+
         </div>
         <div
           className="prose"
