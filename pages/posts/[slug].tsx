@@ -34,7 +34,10 @@ const PostLayout = ({ post }: { post: Post }) => {
           </time>
           <h1>{post.title}</h1>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: post.body.html }} />
+        <div
+          className="prose"
+          dangerouslySetInnerHTML={{ __html: post.body.html }}
+        />
       </article>
     </>
   );

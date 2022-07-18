@@ -10,6 +10,7 @@ export async function getStaticProps() {
 }
 
 function PostCard(post: Post) {
+  // console.log(post)
   return (
     <div className="mb-8">
       <h2 className="text-xl">
@@ -17,12 +18,12 @@ function PostCard(post: Post) {
           <a className="text-blue-700 hover:text-blue-900">{post.title}</a>
         </Link>
       </h2>
-      <time dateTime={post.date} className="block text-xs text-gray-600 mb-2">
+      <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
         {format(parseISO(post.date), "LLLL d, yyyy")}
       </time>
       <div
         className="text-sm"
-        dangerouslySetInnerHTML={{ __html: post.body.html }}
+        dangerouslySetInnerHTML={{ __html: post.description }}
       />
     </div>
   );
@@ -30,8 +31,10 @@ function PostCard(post: Post) {
 
 export default function Home({ posts }: { posts: Post[] }) {
   return (
-    <div className="max-w-xl mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Next.js Example</h1>
+    <div className="max-w-xl py-8 mx-auto">
+      <h1 className="mb-8 text-3xl font-bold text-center">
+        Next.js Example
+      </h1>
 
       {posts.map((post, idx) => (
         <PostCard key={idx} {...post} />
