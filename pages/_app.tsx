@@ -1,8 +1,15 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import '../styles/globals.css'
+import "../styles/globals.css";
 
-import { Header } from '../components/Header'
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
+
+import { Header } from "../components/Header";
 
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
@@ -16,8 +23,15 @@ export default function MyApp({ Component, pageProps }) {
       <Header />
 
       <div className="px-6">
-        <Component {...pageProps} />
+        <ClerkProvider {...pageProps}>
+          {/* <SignedIn> */}
+            <Component {...pageProps} />
+          {/* </SignedIn> */}
+          {/* <SignedOut>
+            <RedirectToSignIn />
+          </SignedOut> */}
+        </ClerkProvider>
       </div>
     </>
-  )
+  );
 }

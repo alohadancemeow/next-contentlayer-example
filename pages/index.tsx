@@ -6,6 +6,8 @@ import { allPosts, Post } from "contentlayer/generated";
 import Tags from "components/Tags";
 import Menu from "components/Menu";
 
+import { UserButton } from "@clerk/clerk-react";
+
 export async function getStaticProps() {
   const posts: Post[] = allPosts.sort((a, b) => {
     return compareDesc(new Date(a.date), new Date(b.date));
@@ -33,17 +35,18 @@ export const PostCard = (post: Post) => {
       />
     </div>
   );
-}
+};
 
 const Home: NextPage = ({ posts }: { posts: Post[] }) => {
   return (
     <div className="max-w-xl py-8 mx-auto">
       <Menu />
+      <UserButton />
       {posts.map((post, idx) => (
         <PostCard key={idx} {...post} />
       ))}
     </div>
   );
-}
+};
 
-export default Home
+export default Home;
